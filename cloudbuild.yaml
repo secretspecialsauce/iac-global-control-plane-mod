@@ -1,0 +1,14 @@
+steps:
+- id: 'tf apply'
+  name: 'hashicorp/terraform:latest'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      for dir in */
+      do
+        cd ${dir}
+        terraform init
+        terraform plan
+        # terraform apply -auto-approve
+      done
