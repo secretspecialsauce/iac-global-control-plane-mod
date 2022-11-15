@@ -7,12 +7,16 @@ resource "google_folder" "backend_automation" {
   parent       = var.global_control_plane_folder_name
 }
 
+locals {
+  project_prefix = var.project_prefix == "" ? "" : "${var.project_prefix}-"
+}
+
 // Create project for cloud build
 module "backend_cloud_build_project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 10.1"
 
-  name              = "b-cloud-build-project"
+  name              = "${local.project_prefix}cloud-build-project"
   random_project_id = true
   org_id            = var.org_id
   folder_id         = google_folder.backend_automation.name

@@ -18,3 +18,8 @@ variable "billing_account_id" {
 variable "global_control_plane_folder_name" {
   type = string
 }
+
+variable "project_prefix" {
+  type = string
+  default = ""
+}

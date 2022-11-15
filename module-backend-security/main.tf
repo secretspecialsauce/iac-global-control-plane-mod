@@ -8,11 +8,15 @@ resource "google_folder" "backend_security" {
   parent       = var.global_control_plane_folder_name
 }
 
+locals {
+  project_prefix = var.project_prefix == "" ? "" : "${var.project_prefix}-"
+}
+
 module "backend_kms_project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 10.1"
 
-  name              = "b-kms-project"
+  name              = "${local.project_prefix}kms-project"
   random_project_id = true
   org_id            = var.org_id
   folder_id         = google_folder.backend_security.name
@@ -27,7 +31,7 @@ module "backend_secret_manager_project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 10.1"
 
-  name              = "b-secrets-project"
+  name              = "${local.project_prefix}secrets-project"
   random_project_id = true
   org_id            = var.org_id
   folder_id         = google_folder.backend_security.name
@@ -42,7 +46,7 @@ module "backend_forensic_logs_project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 10.1"
 
-  name              = "b-logs-project"
+  name              = "${local.project_prefix}logs-project"
   random_project_id = true
   org_id            = var.org_id
   folder_id         = google_folder.backend_security.name
@@ -57,7 +61,7 @@ module "backend_artifacts_project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 10.1"
 
-  name              = "b-artifacts-project"
+  name              = "${local.project_prefix}artifacts-project"
   random_project_id = true
   org_id            = var.org_id
   folder_id         = google_folder.backend_security.name

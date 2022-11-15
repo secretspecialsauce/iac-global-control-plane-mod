@@ -2,6 +2,10 @@ provider "google" {
 
 }
 
+locals {
+  project_prefix = var.project_prefix == "" ? "" : "${var.project_prefix}-"
+}
+
 // create a folder to house any billing related projects. This folder is configured to attach to the global-control-plane folder which is defined in the module-backend-meta module.
 resource "google_folder" "backend_billing" {
   display_name = var.backend_billing_directory_display_name
@@ -12,7 +16,7 @@ module "backend_billing_project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 10.1"
 
-  name              = "b-billing-project"
+  name              = "${local.project_prefix}billing-project"
   random_project_id = true
   org_id            = var.org_id
   folder_id         = google_folder.backend_billing.name
