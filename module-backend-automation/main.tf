@@ -1,6 +1,11 @@
-provider "google" {
-
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+    }
+  }
 }
+
 // create a folder to house any automation related projects. This folder is configured to attach to the global-control-plane folder which is defined in the module-backend-meta module.
 resource "google_folder" "backend_automation" {
   display_name = var.backend_automation_directory_display_name

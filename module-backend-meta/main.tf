@@ -1,5 +1,9 @@
-provider "google" {
-
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+    }
+  }
 }
 
 // Creates the global-control-plane folder which attaches to the root of the organization. All other global control plane modules attach to this folder.

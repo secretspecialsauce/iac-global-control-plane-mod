@@ -1,5 +1,9 @@
-provider "google" {
-
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+    }
+  }
 }
 
 // create a folder to house any security related projects. This folder is configured to attach to the global-control-plane folder which is defined in the module-backend-meta module.

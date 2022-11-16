@@ -1,5 +1,9 @@
-provider "google" {
-
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+    }
+  }
 }
 
 locals {
