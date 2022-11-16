@@ -19,6 +19,6 @@ variable "global_control_plane_folder_name" {
 }
 
 variable "project_prefix" {
-  type = string
+  type    = string
   default = ""
 }
