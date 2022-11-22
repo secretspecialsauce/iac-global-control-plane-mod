@@ -1,33 +1,42 @@
 terraform {
   required_providers {
     google = {
-      source  = "hashicorp/google"
+      source = "hashicorp/google"
     }
   }
 }
 
-// create a folder to house any automation related projects. This folder is configured to attach to the global-control-plane folder which is defined in the module-backend-meta module.
-resource "google_folder" "backend_automation" {
-  display_name = var.backend_automation_directory_display_name
-  parent       = var.global_control_plane_folder_name
-}
+
 
 locals {
   project_prefix = var.project_prefix == "" ? "" : "${var.project_prefix}-"
+  gcb-tf-iam-roles = [
+    "roles/accesscontextmanager.policyAdmin",
+    "roles/billing.user",
+    "roles/billing.projectManager",
+    "roles/compute.networkAdmin",
+    "roles/compute.xpnAdmin",
+    "roles/iam.securityAdmin",
+    "roles/iam.serviceAccountAdmin",
+    "roles/logging.configWriter",
+    "roles/orgpolicy.policyAdmin",
+    "roles/resourcemanager.projectCreator",
+    "roles/resourcemanager.projectDeleter",
+    "roles/resourcemanager.folderAdmin",
+    "roles/securitycenter.notificationConfigEditor",
+    "roles/resourcemanager.organizationViewer",
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/cloudasset.viewer",
+    "roles/securitycenter.admin",              # https://source.cloud.google.com/cloud-professional-services/televisaunivision/+/main:4-shared-services/secret-management-project/dev/scc.tf;bpv=1;bpt=0
+    "roles/resourcemanager.organizationAdmin", # https://source.cloud.google.com/cloud-professional-services/televisaunivision/+/main:4-shared-services/secret-management-project/dev/scc.tf;bpv=1;bpt=0
+    "roles/resourcemanager.tagAdmin",
+    "roles/resourcemanager.tagUser",
+    "roles/resourcemanager.projectCreator"
+  ]
 }
 
 // Create project for cloud build
-module "backend_cloud_build_project" {
-  source  = "terraform-google-modules/project-factory/google"
-  version = "~> 10.1"
 
-  name              = "${local.project_prefix}cloud-build-project"
-  random_project_id = true
-  org_id            = var.org_id
-  folder_id         = google_folder.backend_automation.name
-  billing_account   = var.billing_account_id
 
-  activate_apis = [
-    "cloudbuild.googleapis.com",
-  ]
-}
+
+
