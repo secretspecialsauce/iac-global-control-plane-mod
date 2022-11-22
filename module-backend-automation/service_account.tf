@@ -4,9 +4,9 @@ resource "google_service_account" "default" {
 }
 
 resource "google_organization_iam_member" "default" {
-  for_each = local.gcb-tf-iam-roles
+  for_each = toset(local.gcb-tf-iam-roles)
 
   org_id = var.org_id
   role   = each.value
-  member = "serviceaccount:${google_service_account.default.email}"
+  member = "serviceAccount:${google_service_account.default.email}"
 }
