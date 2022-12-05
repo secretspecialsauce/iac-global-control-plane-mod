@@ -7,9 +7,8 @@ terraform {
 }
 
 
-
 locals {
-  project_prefix = var.project_prefix == "" ? "" : "${var.project_prefix}-"
+  project_prefix   = var.project_prefix == "" ? "" : "${var.project_prefix}-"
   gcb-tf-iam-roles = [
     "roles/accesscontextmanager.policyAdmin",
     "roles/billing.user",
@@ -27,12 +26,13 @@ locals {
     "roles/resourcemanager.organizationViewer",
     "roles/resourcemanager.projectIamAdmin",
     "roles/cloudasset.viewer",
-    "roles/securitycenter.admin",              # https://source.cloud.google.com/cloud-professional-services/televisaunivision/+/main:4-shared-services/secret-management-project/dev/scc.tf;bpv=1;bpt=0
-    "roles/resourcemanager.organizationAdmin", # https://source.cloud.google.com/cloud-professional-services/televisaunivision/+/main:4-shared-services/secret-management-project/dev/scc.tf;bpv=1;bpt=0
+    "roles/securitycenter.admin",
+    "roles/resourcemanager.organizationAdmin",
     "roles/resourcemanager.tagAdmin",
     "roles/resourcemanager.tagUser",
     "roles/resourcemanager.projectCreator",
     "roles/logging.logWriter",
+    "roles/serviceusage.serviceUsageAdmin"
   ]
 }
 
