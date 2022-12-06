@@ -1,4 +1,5 @@
 resource "google_service_account" "default" {
+  project     = module.backend_cloud_build_project.project_id
   account_id  = "gcb-repo-iac-deploy"
   description = "Used by Google Cloud Build for Terraform deployments on repo iac-deploy; Terraform managed"
 }
