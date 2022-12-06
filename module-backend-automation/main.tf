@@ -8,7 +8,7 @@ terraform {
 
 
 locals {
-  project_prefix   = var.project_prefix == "" ? "" : "${var.project_prefix}-"
+  project_prefix = var.project_prefix == "" ? "" : "${var.project_prefix}-"
   gcb-tf-iam-roles = [
     "roles/accesscontextmanager.policyAdmin",
     "roles/billing.user",
