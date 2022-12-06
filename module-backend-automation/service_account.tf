@@ -1,6 +1,6 @@
 resource "google_service_account" "default" {
-  account_id   = "gcb-repo-iac-deploy"
-  display_name = "Used by Google Cloud Build for Terraform deployments on repo iac-deploy; Terraform managed"
+  account_id  = "gcb-repo-iac-deploy"
+  description = "Used by Google Cloud Build for Terraform deployments on repo iac-deploy; Terraform managed"
 }
 
 resource "google_organization_iam_member" "default" {
