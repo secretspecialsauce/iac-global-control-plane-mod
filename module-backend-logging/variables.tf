@@ -1,8 +1,13 @@
-variable "project_id" {
+variable "project_name" {
   type = string
+  default = "logging"
 }
 
 variable "org_id" {
+  type = string
+}
+
+variable "billing_account_id" {
   type = string
 }
 
@@ -38,5 +43,12 @@ variable "bq_table_expiration_ms" {
 
 variable "log_filter" {
   type = string
-  # default = "logName:cloudaudit.googleapis.com/data_access AND NOT protoPayload.serviceName:container.googleapis.com"
+  default = ""
+  # default = "logName =~ \".*cloudaudit.googleapis.com%2Fsystem_event\""
+}
+
+
+variable "logging_directory_display_name" {
+  type = string
+  default = "logging"
 }
